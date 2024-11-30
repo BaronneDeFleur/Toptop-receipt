@@ -225,16 +225,17 @@ def save_to_csv(data, filename="output.csv"):
 
 
 
+import sys  
+
 def main():
     """
     Main function to process PDF and insert data to CSV file
     """
     print("Processing PDFs...")
     try:
-        pdf_dir = "C:/Users/admin/Downloads/tiktok-order-receipt-pdf-master/tiktok-order-receipt-pdf-master/pdf/"
+        pdf_dir = "./pdf"
 
         order_data_list = extract_pdf_data(pdf_dir)
-        # print(order_data_list)
 
         if order_data_list:
             # Lưu dữ liệu vào file CSV
@@ -244,10 +245,12 @@ def main():
         processed_files = load_processed_files()
         processed_files.extend([order["filename"] for order in order_data_list])
         save_processed_files(processed_files)
+
         print("Process completed successfully.")    
+        sys.exit(0)  # Thoát với mã thành công (exit code 0)
     except Exception as e:
         print(f"An error occurred: {e}")
-        
-    
+        sys.exit(1)  # Thoát với mã lỗi (exit code 1)
+
 if __name__ == "__main__":
     main()
